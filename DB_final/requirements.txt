@@ -1,0 +1,26 @@
+﻿#後端程式要求
+##全部method都是post
+
+V
+### logout.php
+登出
+no input
+
+V
+### login.php
+帳號登入
+input(type:text): 帳號(name="Account")、密碼(name="Password")
+
+V
+### register.php
+註冊帳號資料送進資料庫，註冊成功自動導到登入頁面
+input(type:text): 商家名稱(name="StoreName")、帳號(name="Account")、密碼(name="Password")
+
+V
+### edit_account.php
+修改使用者密碼
+input(type:text): 當前密碼(name="OldPassword")、新密碼(name="NewPassword")、新密碼確認(name="NewPassword2")
+
+### goods.php
+需可顯示某一/多個分類選項的商品，分類暫時固定為食品/家電/生活雜物
+input(type:checkbox): 食品(name="Foods")、家電(name="HAppliance")、生活雜物(name="Groceries")
