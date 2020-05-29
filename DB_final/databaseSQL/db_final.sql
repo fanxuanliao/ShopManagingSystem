@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： localhost
--- 產生時間： 2020 年 05 月 26 日 13:27
+-- 產生時間： 2020 年 05 月 29 日 11:21
 -- 伺服器版本： 10.3.15-MariaDB
 -- PHP 版本： 7.1.30
 
@@ -29,11 +29,11 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `commodity` (
-  `factory_tax_id` int(8) NOT NULL,
   `commodity_name` varchar(64) CHARACTER SET utf8 NOT NULL,
   `category` varchar(16) CHARACTER SET utf8 NOT NULL,
   `cost` int(10) NOT NULL,
   `sell_price` int(10) NOT NULL,
+  `factory_tax_id` int(8) NOT NULL,
   `user_ID` int(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -41,20 +41,20 @@ CREATE TABLE `commodity` (
 -- 傾印資料表的資料 `commodity`
 --
 
-INSERT INTO `commodity` (`factory_tax_id`, `commodity_name`, `category`, `cost`, `sell_price`, `user_ID`) VALUES
-(87654321, '紅茶', '食品', 10, 25, 32345678),
-(87654231, '耳機', '家電', 150, 300, 12345678),
-(87654231, '耳機', '家電', 150, 300, 32345678),
-(87654321, '草莓', '食品', 30, 50, 12345678),
-(87654321, '草莓', '食品', 30, 50, 22345678),
-(81234567, '菜刀', '生活雜物', 200, 500, 12345678),
-(81234567, '菜刀', '生活雜物', 200, 500, 22345678),
-(87654321, '蘋果', '食品', 10, 20, 12345678),
-(87654321, '蘋果', '食品', 10, 20, 22345678),
-(87654321, '蘋果', '食品', 10, 20, 32345678),
-(87654231, '電擊棒', '家電', 200, 400, 22345678),
-(87654231, '電擊棒', '家電', 200, 400, 32345678),
-(87654231, '電風扇', '家電', 500, 700, 12345678);
+INSERT INTO `commodity` (`commodity_name`, `category`, `cost`, `sell_price`, `factory_tax_id`, `user_ID`) VALUES
+('紅茶', '食品', 10, 25, 87654321, 32345678),
+('耳機', '家電', 150, 300, 87654231, 12345678),
+('耳機', '家電', 150, 300, 87654231, 32345678),
+('草莓', '食品', 30, 50, 87654321, 12345678),
+('草莓', '食品', 30, 50, 87654321, 22345678),
+('菜刀', '生活雜物', 200, 500, 81234567, 12345678),
+('菜刀', '生活雜物', 200, 500, 81234567, 22345678),
+('蘋果', '食品', 10, 20, 87654321, 12345678),
+('蘋果', '食品', 10, 20, 87654321, 22345678),
+('蘋果', '食品', 10, 20, 87654321, 32345678),
+('電擊棒', '家電', 200, 400, 87654231, 22345678),
+('電擊棒', '家電', 200, 400, 87654231, 32345678),
+('電風扇', '家電', 500, 700, 87654231, 12345678);
 
 -- --------------------------------------------------------
 
@@ -118,6 +118,7 @@ INSERT INTO `customer_order` (`order_number`, `customer_name`, `customer_phone`,
 --
 
 CREATE TABLE `employee` (
+  `employee_id` int(11) NOT NULL,
   `name` varchar(32) CHARACTER SET utf8 NOT NULL,
   `birthdate` date NOT NULL,
   `phone_number` varchar(12) NOT NULL,
@@ -130,12 +131,12 @@ CREATE TABLE `employee` (
 -- 傾印資料表的資料 `employee`
 --
 
-INSERT INTO `employee` (`name`, `birthdate`, `phone_number`, `address`, `position`, `user_ID`) VALUES
-('店員E', '1997-07-07', '0911234567', '台北市文山區oo路3號', '店員', 22345678),
-('店員C', '1993-03-03', '0912345678', '台北市文山區oo路5號', '店員', 32345678),
-('店員A', '1999-01-01', '0920123456', '台北市文山區oo路1號', '店員', 12345678),
-('店員Ｂ', '1990-01-01', '0930123456', '台北市文山區oo路4號', '店員', 22345678),
-('店員D', '1995-05-05', '0935124678', '台北市文山區oo路2號', '店長', 12345678);
+INSERT INTO `employee` (`employee_id`, `name`, `birthdate`, `phone_number`, `address`, `position`, `user_ID`) VALUES
+(1, '店員E', '1997-07-07', '0911234567', '台北市文山區oo路3號', '店員', 22345678),
+(2, '店員C', '1993-03-03', '0912345678', '台北市文山區oo路5號', '店員', 32345678),
+(3, '店員A', '1999-01-01', '0920123456', '台北市文山區oo路1號', '店員', 12345678),
+(4, '店員Ｂ', '1990-01-01', '0930123456', '台北市文山區oo路4號', '店員', 22345678),
+(5, '店員D', '1995-05-05', '0935124678', '台北市文山區oo路2號', '店長', 12345678);
 
 -- --------------------------------------------------------
 
@@ -179,7 +180,6 @@ CREATE TABLE `order_include` (
 
 INSERT INTO `order_include` (`user_ID`, `order_number`, `com_name`, `amount`) VALUES
 (32345678, 7, '紅茶', 30),
-(32345678, 6, '耳機', 2),
 (12345678, 1, '草莓', 20),
 (22345678, 3, '草莓', 10),
 (22345678, 5, '草莓', 40),
@@ -242,7 +242,7 @@ ALTER TABLE `customer_order`
 -- 資料表索引 `employee`
 --
 ALTER TABLE `employee`
-  ADD PRIMARY KEY (`phone_number`,`user_ID`) USING BTREE,
+  ADD PRIMARY KEY (`employee_id`,`user_ID`) USING BTREE,
   ADD KEY `employee_ibfk_1` (`user_ID`);
 
 --
@@ -273,7 +273,13 @@ ALTER TABLE `user`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `customer_order`
 --
 ALTER TABLE `customer_order`
-  MODIFY `order_number` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `order_number` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- 使用資料表自動遞增(AUTO_INCREMENT) `employee`
+--
+ALTER TABLE `employee`
+  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- 已傾印資料表的限制式
@@ -283,21 +289,21 @@ ALTER TABLE `customer_order`
 -- 資料表的限制式 `commodity`
 --
 ALTER TABLE `commodity`
-  ADD CONSTRAINT `commodity_ibfk_1` FOREIGN KEY (`user_ID`) REFERENCES `user` (`tax_id`),
-  ADD CONSTRAINT `commodity_ibfk_2` FOREIGN KEY (`factory_tax_id`) REFERENCES `factory` (`factory_tax_id`);
+  ADD CONSTRAINT `commodity_ibfk_1` FOREIGN KEY (`user_ID`) REFERENCES `user` (`tax_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `commodity_ibfk_2` FOREIGN KEY (`factory_tax_id`) REFERENCES `cooperate` (`factory_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- 資料表的限制式 `cooperate`
 --
 ALTER TABLE `cooperate`
   ADD CONSTRAINT `cooperate_ibfk_1` FOREIGN KEY (`user_ID`) REFERENCES `user` (`tax_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `cooperate_ibfk_2` FOREIGN KEY (`factory_ID`) REFERENCES `factory` (`factory_tax_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `cooperate_ibfk_2` FOREIGN KEY (`factory_ID`) REFERENCES `factory` (`factory_tax_id`) ON UPDATE CASCADE;
 
 --
 -- 資料表的限制式 `customer_order`
 --
 ALTER TABLE `customer_order`
-  ADD CONSTRAINT `customer_order_ibfk_1` FOREIGN KEY (`user_ID`) REFERENCES `user` (`tax_id`);
+  ADD CONSTRAINT `customer_order_ibfk_1` FOREIGN KEY (`user_ID`) REFERENCES `user` (`tax_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- 資料表的限制式 `employee`
@@ -311,7 +317,7 @@ ALTER TABLE `employee`
 ALTER TABLE `order_include`
   ADD CONSTRAINT `order_include_ibfk_1` FOREIGN KEY (`user_ID`) REFERENCES `user` (`tax_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `order_include_ibfk_2` FOREIGN KEY (`order_number`) REFERENCES `customer_order` (`order_number`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `order_include_ibfk_3` FOREIGN KEY (`com_name`) REFERENCES `commodity` (`commodity_name`);
+  ADD CONSTRAINT `order_include_ibfk_3` FOREIGN KEY (`com_name`) REFERENCES `commodity` (`commodity_name`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
