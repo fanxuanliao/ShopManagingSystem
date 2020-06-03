@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="商家管理系統">
     <meta name="author" content="DCT-WEB-GROUP-5">
-    <title>商品管理</title>
+    <title>訂單管理</title>
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
@@ -56,61 +56,30 @@
             </nav>
             <!-- 內容 -->
             <div class="container-fluid">
-                <h1 class="mt-4">商品管理</h1><br><br>
-                <a href="new_goods.php" class="ml-5"><button type="button" class="btn btn-info btn-sm">新增商品</button></a>
-                <div class="classbtn d-inline">
-                    <!--
-                    <button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button" id="classdropdownMenu" data-toggle="dropdown">
-                        分類
-                    </button>
-                  -->
-                    <div class="text d-inline">分類選項：</div>
-                    <form action="classify.php" method="post" class="d-inline">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="Foods" {:checked1}>
-                            <label class="form-check-label" for="inlineCheckbox1">食品</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="HAppliance" {:checked2}>
-                            <label class="form-check-label" for="inlineCheckbox2">家電</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" name="Groceries" {:checked3}>
-                            <label class="form-check-label" for="inlineCheckbox3">生活雜物</label>
-                        </div>
-                        <input type="submit" value="確定" class="btn btn-primary btn-sm">
-                    </form>
-                </div>
-                <hr>
+                <h1 class="mt-4">訂單管理</h1><br><br>
+                <a href="new_order_form.php" class="ml-5"><button type="button" class="btn btn-info btn-sm">新增訂單</button></a><hr>
             </div>
-            <div class="ml-5 mr-5">
-                <table class="table table-striped table-bordered">
-                    <thead>
-                        <tr>
-                            <th>類別</th>
-                            <th>品名</th>
-                            <th>成本</th>
-                            <th>售價</th>
-                            <th>廠商</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {:messages}
-                    </tbody>
-                </table>
-            </div>
-            <!--
-            <nav aria-label="Search results pages">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item"><a class="page-link" href="<?php echo'supplier.html'?>">Previous</a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                </ul>
-            </nav>
-            -->
+
+<div class="ml-5 mr-5">
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th>單號</th>
+      <th>聯絡人</th>
+      <th>電話</th>
+      <th>地址</th>
+      <th>日期</th>
+      <th>商品</th>
+      <th>狀態</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<tr>
+    {:messages}
+  </tbody>
+</table>
+</div>
             <!-- 內容 -->
         </div>
         <!-- /#page-content-wrapper -->

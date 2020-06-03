@@ -27,10 +27,11 @@
     <div class="d-flex" id="wrapper">
         <!-- Sidebar -->
         <div class="bg-dark border-right text-white" id="sidebar-wrapper">
-            <div class="sidebar-heading">庫存管理系統</div>
+            <div class="sidebar-heading">商家管理系統</div>
             <div class="list-group list-group-flush">
                 <a href="goods.php" class="list-group-item list-group-item-action bg-dark text-white">商品</a>
-                <a href="supplier.php" class="list-group-item list-group-item-action bg-dark text-white">廠商</a>
+                <a href="supplier.php" class="list-group-item list-group-item-action bg-dark text-white">供應商</a>
+                <a href="order_form.php" class="list-group-item list-group-item-action bg-dark text-white">訂單</a>
                 <a href="employee.php" class="list-group-item list-group-item-action bg-dark text-white">員工</a>
                 <a href="analysis.php" class="list-group-item list-group-item-action bg-dark text-white">分析報告</a>
             </div>
@@ -84,6 +85,10 @@
                         <div class="form-group mx-auto" style="width: 500px;">
                             <label for="formAddress">地址</label>
                             <input type="text" class="form-control" id="formAddress" name="address" placeholder="Address" required>
+                        </div>
+                        <div class="form-group mx-auto" style="width: 500px;">
+                            <label for="formTaxId">統一編號</label>
+                            <input maxlength="8" type="text" class="form-control" id="formTaxId" name="taxid" placeholder="Tax Id" required>
                         </div>
                         <input type="submit" value="新增" class="btn btn-primary">
                     </div>

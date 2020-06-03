@@ -1,15 +1,53 @@
-<html>
+<?php
+session_start();
+include("pdoInc.php");
+?>
+ 
+<?php
+if(isset($_POST['supplier'])){
+        $sth = $dbh->prepare('SELECT factory_tax_id , factory_name FROM factory where factory_name =?');
+        $sth->execute(array($_POST['supplier']));
+        $chk = $sth->fetch(PDO::FETCH_ASSOC);
+        echo "<script> alert(". $chk['factory_name'] .") </script>";
+        if($chk['factory_name']!=NULL){
+            $sth = $dbh->prepare('INSERT INTO cooperate (user_ID,factory_ID) VALUES (?, ?)');
+            $sth->execute(array(
+                $_SESSION['account'],
+                $chk['factory_tax_id']
+            ));
+            echo '<script>alert("新增成功")</script>';
+        }
+        else
+            echo '<script>alert("查無廠商，無法新增")</script>';
+        
+        echo '<meta http-equiv=REFRESH CONTENT=0;url=supplier.php>';
+}
+
+?>
+
+<!DOCTYPE html>
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="商家管理系統">
     <meta name="author" content="DCT-WEB-GROUP-5">
-    <title>商品管理</title>
+    <title>新增商品</title>
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="css/simple-sidebar.css" rel="stylesheet">
+    <!-- 嘗試更改預設字體  
+  <link rel="stylesheet" href="/font_style.css">
+  <style>
+    body {
+  margin: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+}
+  </style>
+-->
 </head>
 
 <body>
@@ -56,61 +94,30 @@
             </nav>
             <!-- 內容 -->
             <div class="container-fluid">
-                <h1 class="mt-4">商品管理</h1><br><br>
-                <a href="new_goods.php" class="ml-5"><button type="button" class="btn btn-info btn-sm">新增商品</button></a>
-                <div class="classbtn d-inline">
-                    <!--
-                    <button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button" id="classdropdownMenu" data-toggle="dropdown">
-                        分類
-                    </button>
-                  -->
-                    <div class="text d-inline">分類選項：</div>
-                    <form action="classify.php" method="post" class="d-inline">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="Foods" {:checked1}>
-                            <label class="form-check-label" for="inlineCheckbox1">食品</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="HAppliance" {:checked2}>
-                            <label class="form-check-label" for="inlineCheckbox2">家電</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" name="Groceries" {:checked3}>
-                            <label class="form-check-label" for="inlineCheckbox3">生活雜物</label>
-                        </div>
-                        <input type="submit" value="確定" class="btn btn-primary btn-sm">
-                    </form>
-                </div>
-                <hr>
+                <h1 class="mt-4">新增合作廠商</h1><br><br>
+                <a href="new_supplier.php" class="ml-5"><button type="button" class="btn btn-info btn-sm">新增廠商</button></a><hr>
+                <form action="new_cooperate.php" method="post">
+                    <div class="d-flex flex-column justify-content-center align-items-center mt-5" id="wrapper">
+                        <div class="form-group mx-auto" style="width: 500px;"></div>
+                       <div class="form-group mx-auto" style="width: 500px;">
+                            <label for="formSupplier">供應商</label>
+                            <select id="formSupplier" class="form-control" name="supplier">
+</html>
+ <?php
+                        $test = $dbh->prepare('SELECT factory_name from factory except SELECT factory_name from factory,cooperate where factory_tax_id = factory_ID and user_ID=?');
+                        $test->execute(array($_SESSION['account']));
+                        while($row = $test->fetch(PDO::FETCH_ASSOC)){
+                            echo "<option>$row[factory_name]</option>";
+                        }
+?>
+    <html>
+                            </select>
+                       </div>
+                       
+                        <input type="submit" value="新增" class="btn btn-primary"><br><br>
+                    </div>
+                </form>
             </div>
-            <div class="ml-5 mr-5">
-                <table class="table table-striped table-bordered">
-                    <thead>
-                        <tr>
-                            <th>類別</th>
-                            <th>品名</th>
-                            <th>成本</th>
-                            <th>售價</th>
-                            <th>廠商</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {:messages}
-                    </tbody>
-                </table>
-            </div>
-            <!--
-            <nav aria-label="Search results pages">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item"><a class="page-link" href="<?php echo'supplier.html'?>">Previous</a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                </ul>
-            </nav>
-            -->
             <!-- 內容 -->
         </div>
         <!-- /#page-content-wrapper -->

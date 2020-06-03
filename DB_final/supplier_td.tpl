@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="庫存管理系統">
+    <meta name="description" content="商家管理系統">
     <meta name="author" content="DCT-WEB-GROUP-5">
-    <title>廠商管理</title>
+    <title>供應商管理</title>
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
@@ -16,10 +16,11 @@
     <div class="d-flex" id="wrapper">
         <!-- Sidebar -->
         <div class="bg-dark border-right text-white" id="sidebar-wrapper">
-            <div class="sidebar-heading">庫存管理系統</div>
+            <div class="sidebar-heading">商家管理系統</div>
             <div class="list-group list-group-flush">
                 <a href="goods.php" class="list-group-item list-group-item-action bg-dark text-white">商品</a>
-                <a href="supplier.php" class="list-group-item list-group-item-action bg-dark text-white">廠商</a>
+                <a href="supplier.php" class="list-group-item list-group-item-action bg-dark text-white">供應商</a>
+                <a href="order_form.php" class="list-group-item list-group-item-action bg-dark text-white">訂單</a>
                 <a href="employee.php" class="list-group-item list-group-item-action bg-dark text-white">員工</a>
                 <a href="analysis.php" class="list-group-item list-group-item-action bg-dark text-white">分析報告</a>
             </div>
@@ -55,8 +56,8 @@
             </nav>
             <!-- 內容 -->
             <div class="container-fluid">
-                <h1 class="mt-4">廠商管理</h1><br><br>
-                <a href="new_supplier.html" class="ml-5"><button type="button" class="btn btn-info btn-sm">新增廠商</button></a><hr>
+                <h1 class="mt-4">供應商管理</h1><br><br>
+                <a href="new_cooperate.php" class="ml-5"><button type="button" class="btn btn-info btn-sm">新增供應商</button></a><hr>
             </div>
 
 <div class="ml-5 mr-5">

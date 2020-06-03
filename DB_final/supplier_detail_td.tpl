@@ -56,30 +56,14 @@
             </nav>
             <!-- 內容 -->
             <div class="container-fluid">
-                <h1 class="mt-4">商品管理</h1><br><br>
-                <a href="new_goods.php" class="ml-5"><button type="button" class="btn btn-info btn-sm">新增商品</button></a>
+                <h1 class="mt-4">供應列表</h1><br><br>
+                <!--<a href="new_goods.php" class="ml-5"><button type="button" class="btn btn-info btn-sm">新增商品</button></a>-->
                 <div class="classbtn d-inline">
                     <!--
                     <button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button" id="classdropdownMenu" data-toggle="dropdown">
                         分類
                     </button>
                   -->
-                    <div class="text d-inline">分類選項：</div>
-                    <form action="classify.php" method="post" class="d-inline">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="Foods" {:checked1}>
-                            <label class="form-check-label" for="inlineCheckbox1">食品</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="HAppliance" {:checked2}>
-                            <label class="form-check-label" for="inlineCheckbox2">家電</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" name="Groceries" {:checked3}>
-                            <label class="form-check-label" for="inlineCheckbox3">生活雜物</label>
-                        </div>
-                        <input type="submit" value="確定" class="btn btn-primary btn-sm">
-                    </form>
                 </div>
                 <hr>
             </div>

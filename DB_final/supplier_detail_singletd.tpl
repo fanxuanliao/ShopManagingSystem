@@ -4,7 +4,6 @@
     <td>{:cost}</td>
     <td>{:price}</td>
     <td>{:factory}</td>
-    <!--<td>{:selling_vol}</td>-->
     <td>
     <a href="del_goods.php?name={:delete1}&factory={:delete2}">刪除</a>
     <a href="edit_goods.php?name={:edit1}&factory={:edit2}">編輯</a>
