@@ -7,19 +7,18 @@ if(!isset($_SESSION['account'])){
     echo '<meta http-equiv=REFRESH CONTENT=0;url="login.html">';
 }
 
-$sth = $dbh->prepare('SELECT * from employee WHERE user=? ORDER BY ID');
+$sth = $dbh->prepare('SELECT * from employee WHERE user_ID=?');
 $sth->execute(array($_SESSION['account']));
 while($row = $sth->fetch(PDO::FETCH_ASSOC)){
     $msgTpl = new template('employee_singletd.tpl');
-    $msgTpl->set('id', $row['ID']);
+    $msgTpl->set('id', $row['employee_id']);
     $msgTpl->set('name', $row['name']);
     $msgTpl->set('position', $row['position']);
-    $msgTpl->set('birthday', $row['birthday']);
-    $msgTpl->set('phonenum', $row['phonenum']);
+    $msgTpl->set('birthday', $row['birthdate']);
+    $msgTpl->set('phonenum', $row['phone_number']);
     $msgTpl->set('address', $row['address']);
-    $msgTpl->set('hours', $row['hours']);
-    $msgTpl->set('delete', $row['ID']);
-    $msgTpl->set('edit', $row['ID']);
+    $msgTpl->set('delete', $row['employee_id']);
+    $msgTpl->set('edit', $row['employee_id']);
     $msgs[] = $msgTpl->render();
 }
  

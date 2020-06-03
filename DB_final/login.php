@@ -8,16 +8,17 @@ if(isset($_POST['acc']) && isset($_POST['pwd'])){
     $acc = preg_replace("/[^A-Za-z0-9]/", "", $_POST['acc']);
     $pwd = preg_replace("/[^A-Za-z0-9]/", "", $_POST['pwd']);
     if($acc != NULL && $pwd != NULL){
-        $sth = $dbh->prepare('SELECT account, pwd, storename FROM user where account = ?');
+        $sth = $dbh->prepare('SELECT tax_id, password, shop_name FROM user where tax_id = ?');
         $sth->execute(array($acc));
         $row = $sth->fetch(PDO::FETCH_ASSOC);
         // 比對密碼
-        if($row['pwd'] == md5($pwd)){
-            $_SESSION['account'] = $row['account'];
-            $_SESSION['storename'] = $row['storename'];
+        
+        if($row['password'] === md5($pwd)){
+            $_SESSION['account'] = $row['tax_id'];
+            $_SESSION['storename'] = $row['shop_name'];
             echo '<meta http-equiv=REFRESH CONTENT=0;url=main.php>';
         }else{
-            echo '<script>alert("帳號密碼有誤")</script>';
+            echo '<script>alert("請輸入統編及密碼")</script>';
             echo '<meta http-equiv=REFRESH CONTENT=0;url=login.html>';
         }
     }else{

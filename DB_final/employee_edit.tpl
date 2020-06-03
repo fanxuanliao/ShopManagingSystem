@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="庫存管理系統">
+    <meta name="description" content="商家管理系統">
     <meta name="author" content="DCT-WEB-GROUP-5">
     <title>編輯員工</title>
     <!-- Bootstrap core CSS -->
@@ -27,10 +27,11 @@
     <div class="d-flex" id="wrapper">
         <!-- Sidebar -->
         <div class="bg-dark border-right text-white" id="sidebar-wrapper">
-            <div class="sidebar-heading">庫存管理系統</div>
+            <div class="sidebar-heading">商家管理系統</div>
             <div class="list-group list-group-flush">
                 <a href="goods.php" class="list-group-item list-group-item-action bg-dark text-white">商品</a>
-                <a href="supplier.php" class="list-group-item list-group-item-action bg-dark text-white">廠商</a>
+                <a href="supplier.php" class="list-group-item list-group-item-action bg-dark text-white">供應商</a>
+                <a href="order_form.php" class="list-group-item list-group-item-action bg-dark text-white">訂單</a>
                 <a href="employee.php" class="list-group-item list-group-item-action bg-dark text-white">員工</a>
                 <a href="analysis.php" class="list-group-item list-group-item-action bg-dark text-white">分析報告</a>
             </div>
@@ -88,10 +89,6 @@
                         <div class="form-group mx-auto" style="width: 500px;">
                             <label for="formAddress">地址</label>
                             <input type="text" class="form-control" id="formAddress" name="address"  value={:address}>
-                        </div>
-                        <div class="form-group mx-auto" style="width: 500px;">
-                            <label for="formHours">時數</label>
-                            <input type="text" class="form-control" id="formHours" name="hours"  value={:hours}>
                         </div>
                         <input type="submit" value="編輯" class="btn btn-primary">
                     </div>
