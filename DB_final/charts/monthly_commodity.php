@@ -1,16 +1,28 @@
 <?php
     include("pdoInc.php");
-    class dataset{
-        public $label;
-        public $dataList;
-        function __construct($label, $dataList)
-        {
-            $this->label = $label;
-            $this->dataList = $dataList;
-        }
-    }
-    function populateDateDataset(){
+    function createDateRangeArray($strDateFrom,$strDateTo)
+    {
+        // takes two dates formatted as YYYY-MM-DD and creates an
+        // inclusive array of the dates between the from and to dates.
 
+        // could test validity of dates here but I'm already doing
+        // that in the main script
+
+        $aryRange=array();
+
+        $iDateFrom=mktime(1,0,0,substr($strDateFrom,5,2),     substr($strDateFrom,8,2),substr($strDateFrom,0,4));
+        $iDateTo=mktime(1,0,0,substr($strDateTo,5,2),     substr($strDateTo,8,2),substr($strDateTo,0,4));
+
+        if ($iDateTo>=$iDateFrom)
+        {
+            array_push($aryRange,date('Y-m-d',$iDateFrom)); // first entry
+            while ($iDateFrom<$iDateTo)
+            {
+                $iDateFrom+=86400; // add 24 hours
+                array_push($aryRange,date('Y-m-d',$iDateFrom));
+            }
+        }
+        return $aryRange;
     }
 
     $sth = $dbh->prepare(        
@@ -39,22 +51,56 @@
                 from customer_order
                 inner join order_include 
                 on order_include.order_number = customer_order.order_number
-                where customer_order.accept_date = '2020-05-26'
+                where customer_order.accept_date >= ? and customer_order.accept_date <= ?
             ) sold_commodity on commodity.commodity_name = sold_commodity.com_name
         ) commodity_stats
-        where commodity_stats.c_category = '家電'
+        where commodity_stats.c_category = ?
         group by commodity_stats.order_date, commodity_stats.c_category
         "
         );
-    $sth->execute();
+    
+    $com_name = $dbh->prepare(
+        "select 
+            commodity_stats.c_name,
+            sum(commodity_stats.c_price * commodity_stats.c_amount)
+        from
+        (
+            select 
+                commodity.commodity_name as c_name,
+                commodity.category as c_category, 
+                commodity.sell_price as c_price, 
+                commodity.user_id as c_user_id, 
+                sold_commodity.amount as c_amount,
+                sold_commodity.order_date as order_date
+            from commodity
+            inner join
+            (
+                select 
+                    order_include.com_name, 
+                    order_include.user_id, 
+                    customer_order.accept_date as order_date,
+                    amount
+                from customer_order
+                inner join order_include 
+                on order_include.order_number = customer_order.order_number
+            ) sold_commodity on commodity.commodity_name = sold_commodity.com_name
+        ) commodity_stats
+        group by commodity_stats.order_date, commodity_stats.c_name");
+
+    
+    $label = $_GET['label'];
+    $startDate = $_GET['start-date'];
+    $endDate =$_GET['end-date'];
+    
+    
+    $sth->execute(array($startDate, $endDate, $label));
     $rows = $sth->fetchAll(PDO::FETCH_ASSOC);
-    $x = array();
-    $y = array();
+    $x = createDateRangeArray($startDate, $endDate);
+    $y = array_fill(0, count($x), 0);
     foreach($rows as $row){
-        array_push($x, $row['category']);
-        array_push($y, $row['category_sum']);
+        $index = array_search($row['order_date'], $x);
+        $y[$index] = $row['category_sum'];
     }
-    $x = ["2020-05-01", "2020-05-20", "2020-05-28"];
-    $y = [new dataset("ProductA", [10,20,30]), new dataset("ProductB", [15,5,10])];
-    $data = ["x" => $x, "y" => $y, "debug" => "1"];
+
+    $data = ["x" => $x, "y" => $y, "label" => $label];
     echo json_encode($data,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);

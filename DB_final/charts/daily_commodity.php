@@ -1,6 +1,6 @@
 <?php
     include("pdoInc.php");
-    if(isset($_GET['order_date'])){
+    if(isset($_GET['date'])){
         $sth = $dbh->prepare(        
             "
             select 
@@ -33,13 +33,17 @@
             group by commodity_stats.c_category
             "
             );
-        $sth->execute(array($_GET['order_date']));
+        $sth->execute(array($_GET['date']));
         $rows = $sth->fetchAll(PDO::FETCH_ASSOC);
         $x = array();
         $y = array();
         foreach($rows as $row){
             array_push($x, $row['category']);
             array_push($y, $row['category_sum']);
+        }
+        if(count($x) == 0 && count($y) == 0){
+            array_push($x, "無資料");
+            array_push($y, 0);
         }
         $data = ["x" => $x, "y" => $y, "debug" => $rows];
         echo json_encode($data,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
