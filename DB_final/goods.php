@@ -116,7 +116,7 @@ if (isset($_GET['food']) && isset($_GET['HA']) && isset($_GET['grocery'])) {
     echo $tpl->render();
 } else {
     $sth = $dbh->prepare('SELECT * from commodity left join factory on commodity.factory_tax_id = factory.factory_tax_id  WHERE user_ID=? AND category=?');
-    $sth->execute(array($_SESSION['account'], '生活雜物'));
+    $sth->execute(array($_SESSION['account'], '食品'));
     while ($row = $sth->fetch(PDO::FETCH_ASSOC)) {
         $msgTpl = new template('goods_singletd.tpl');
         $msgTpl->set('category', $row['category']);
@@ -151,6 +151,6 @@ if (isset($_GET['food']) && isset($_GET['HA']) && isset($_GET['grocery'])) {
     $tpl->set('checked1', 'checked');
     $tpl->set('checked2', '');
     $tpl->set('checked3', '');
-    $tpl->set('messages', join("\n", $msgs));
+    $tpl->set('messages', join("\n", $msgs));//每列商品
     echo $tpl->render();
 }

@@ -160,7 +160,7 @@ $commodity = $sth->fetchAll();
                                     </select>
                                 </div>
                                 <div style="flex: 0 45%; padding-right: 10px;">
-                                    <input type="number" class="form-control" id="number" name="number[]" placeholder="number" required>
+                                    <input type="number" class="form-control" id="number" name="number[]" placeholder="number" min="0" required>
                                 </div>
                                 <div style="flex: 0 10%;">
                                     <span class="delete" style="display: none; float: right; color: red; border-radius: 50%; width: 25px; text-align: center; height: 25px; font-size: 20px; line-height: 20px;">x</span>

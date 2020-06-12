@@ -5,8 +5,8 @@
 // $db_name = "web_final";
 
 $db_server = "localhost";
-$db_user = "root";
-$db_passwd = "374652ttt";
+$db_user = "db_final";
+$db_passwd = "3dO3teLbEO3vaYSp";
 $db_name = "db_final";
 //$db_name = "id13671224_db_final";
 

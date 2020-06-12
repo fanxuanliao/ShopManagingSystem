@@ -66,6 +66,17 @@
                             <input type="text" class="form-control" id="formName" value={:name} name="name" placeholder="Name" readonly="readonly">
                         </div>
                         <div class="form-group mx-auto" style="width: 500px;">
+                            <label for="inputCategory">類別</label>
+                            <input type="text" class="form-control" id="formCategory" value={:category} name="category" placeholder="Category" readonly="readonly">
+                            <!--
+                            <select id="inputCategory" class="form-control" name="category" value={:category} readonly="readonly">
+                                <option>食品</option>
+                                <option>家電</option>
+                                <option>生活雜物</option>
+                            </select>
+                            -->
+                        </div>
+                        <div class="form-group mx-auto" style="width: 500px;">
                             <label for="formCost">成本</label>
                             <input type="text" class="form-control" id="formCost" ng-model="cost" ng-init="cost={:cost}" name="cost" placeholder="Cost">
                         </div>
