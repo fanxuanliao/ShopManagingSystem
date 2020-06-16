@@ -6,17 +6,21 @@ const dailyForm = document.getElementById("dailyForm");
 dailyForm.addEventListener("submit", onDailySubmit);
 const pieCtx = document.getElementById('dailyRevenue').getContext('2d');
 const pieGraph = new Chart(pieCtx, {type: "pie"});
+sendDailyRequest();
 
-function onDailySubmit(event){
-    event.preventDefault();
-    let date = document.getElementById("date").value;
+function sendDailyRequest(date){
     let dailyReq = new XMLHttpRequest(); 
     dailyReq.addEventListener("load", dailyReqListener);
     dailyReq.open("GET", "daily_commodity.php?date=" + date, true);
     dailyReq.send();
 }
+function onDailySubmit(event){
+    event.preventDefault();
+    let date = document.getElementById("date").value;
+    sendDailyRequest(date);
+}
 
-function dailyReqListener () {
+function dailyReqListener() {
     console.log(this.responseText);
     let responseObj = JSON.parse(this.responseText);
     let xList = responseObj.x;
@@ -48,10 +52,14 @@ const datasets = [];
 function onMonthlySubmit(event){
     event.preventDefault();
     datasets.length = 0;
-    let search = document.getElementById("analysis_type").value;
+    let searchType = document.getElementById("search-type").value;
     let startDate = document.getElementById("start-date").value;
     let endDate = document.getElementById("end-date").value;
 
+    sendMonthlyRequest(searchType, startDate, endDate);
+}
+
+function sendMonthlyRequest(searchType, startDate, endDate){
     let categoryReq = new XMLHttpRequest();
     categoryReq.open("GET", "get_set.php", true);
     categoryReq.send();

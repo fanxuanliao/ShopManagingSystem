@@ -11,6 +11,7 @@
     $category_query->execute();
     $category_set = $category_query->fetchAll(PDO::FETCH_ASSOC);
 
+    
     $name_query = $dbh->prepare(        
         "
         select 

@@ -25,7 +25,7 @@
         return $aryRange;
     }
 
-    $sth = $dbh->prepare(        
+    $cateSearch = $dbh->prepare(        
         "
         select 
             commodity_stats.c_category as category,
@@ -59,9 +59,10 @@
         "
         );
     
-    $com_name = $dbh->prepare(
+    $comSearch = $dbh->prepare(
         "select 
             commodity_stats.c_name,
+            commodity_stats.order_date,
             sum(commodity_stats.c_price * commodity_stats.c_amount)
         from
         (
@@ -86,21 +87,29 @@
             ) sold_commodity on commodity.commodity_name = sold_commodity.com_name
         ) commodity_stats
         group by commodity_stats.order_date, commodity_stats.c_name");
-
     
+    
+    if(isset($_GET['search-type'])){
+        $searchType = $_GET['search-type'];
+    }
     $label = $_GET['label'];
     $startDate = $_GET['start-date'];
     $endDate =$_GET['end-date'];
     
     
-    $sth->execute(array($startDate, $endDate, $label));
-    $rows = $sth->fetchAll(PDO::FETCH_ASSOC);
+    $cateSearch->execute(array($startDate, $endDate, $label));
+    $rows = $cateSearch->fetchAll(PDO::FETCH_ASSOC);
+
     $x = createDateRangeArray($startDate, $endDate);
     $y = array_fill(0, count($x), 0);
     foreach($rows as $row){
         $index = array_search($row['order_date'], $x);
         $y[$index] = $row['category_sum'];
     }
+
+    $comSearch->execute(array($startDate, $endDate, $label));
+    $rows = $comSearch->fetchAll(PDO::FETCH_ASSOC);
+
 
     $data = ["x" => $x, "y" => $y, "label" => $label];
     echo json_encode($data,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
