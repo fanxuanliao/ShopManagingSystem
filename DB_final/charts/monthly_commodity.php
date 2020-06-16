@@ -24,7 +24,6 @@
         }
         return $aryRange;
     }
-
     $cateSearch = $dbh->prepare(        
         "
         select 
@@ -58,12 +57,11 @@
         group by commodity_stats.order_date, commodity_stats.c_category
         "
         );
-    
     $comSearch = $dbh->prepare(
         "select 
             commodity_stats.c_name,
             commodity_stats.order_date,
-            sum(commodity_stats.c_price * commodity_stats.c_amount)
+            sum(commodity_stats.c_price * commodity_stats.c_amount) as commodity_sum
         from
         (
             select 
@@ -84,32 +82,39 @@
                 from customer_order
                 inner join order_include 
                 on order_include.order_number = customer_order.order_number
+                where customer_order.accept_date >= ? and customer_order.accept_date <= ?
             ) sold_commodity on commodity.commodity_name = sold_commodity.com_name
         ) commodity_stats
+        where commodity_stats.c_name = ?
         group by commodity_stats.order_date, commodity_stats.c_name");
     
     
-    if(isset($_GET['search-type'])){
-        $searchType = $_GET['search-type'];
-    }
+    $searchType = $_GET['search-type'];
     $label = $_GET['label'];
     $startDate = $_GET['start-date'];
     $endDate =$_GET['end-date'];
     
-    
-    $cateSearch->execute(array($startDate, $endDate, $label));
-    $rows = $cateSearch->fetchAll(PDO::FETCH_ASSOC);
+    if($searchType == 'c_category'){
+        $cateSearch->execute(array($startDate, $endDate, $label));
+        $rows = $cateSearch->fetchAll(PDO::FETCH_ASSOC);
+        $x = createDateRangeArray($startDate, $endDate);
+        $y = array_fill(0, count($x), 0);
+        foreach($rows as $row){
+            $index = array_search($row['order_date'], $x);
+            $y[$index] = $row['category_sum'];
+        }
+        $data = ["x" => $x, "y" => $y, "label" => $label];
+        echo json_encode($data,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
 
-    $x = createDateRangeArray($startDate, $endDate);
-    $y = array_fill(0, count($x), 0);
-    foreach($rows as $row){
-        $index = array_search($row['order_date'], $x);
-        $y[$index] = $row['category_sum'];
+    }else if($searchType == 'c_name'){
+        $comSearch->execute(array($startDate, $endDate, $label));
+        $rows = $comSearch->fetchAll(PDO::FETCH_ASSOC);
+        $x = createDateRangeArray($startDate, $endDate);
+        $y = array_fill(0, count($x), 0);
+        foreach($rows as $row){
+            $index = array_search($row['order_date'], $x);
+            $y[$index] = $row['commodity_sum'];
+        }
+        $data = ["x" => $x, "y" => $y, "label" => $label];
+        echo json_encode($data,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
     }
-
-    $comSearch->execute(array($startDate, $endDate, $label));
-    $rows = $comSearch->fetchAll(PDO::FETCH_ASSOC);
-
-
-    $data = ["x" => $x, "y" => $y, "label" => $label];
-    echo json_encode($data,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);

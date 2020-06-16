@@ -1,23 +1,27 @@
 document.getElementById("date").value = getDate();
-document.getElementById("start-date").value = getDate();
+document.getElementById("start-date").value = getFirstDay();
 document.getElementById("end-date").value = getDate();
+const colors = ["#003f5","#bc5090","#ffa600","#374c80","#7a5195","#bc5090", "#ef5675"];
+let colorIndex = 0;
 
 const dailyForm = document.getElementById("dailyForm");
 dailyForm.addEventListener("submit", onDailySubmit);
 const pieCtx = document.getElementById('dailyRevenue').getContext('2d');
 const pieGraph = new Chart(pieCtx, {type: "pie"});
-sendDailyRequest();
+sendDailyRequest(document.getElementById("daily-search-type").value, document.getElementById("date").value);
 
-function sendDailyRequest(date){
+function sendDailyRequest(searchType, date){
     let dailyReq = new XMLHttpRequest(); 
     dailyReq.addEventListener("load", dailyReqListener);
-    dailyReq.open("GET", "daily_commodity.php?date=" + date, true);
+    dailyReq.open("GET", "daily_commodity.php?date=" + date +"&daily-search-type="+searchType, true);
     dailyReq.send();
 }
+
 function onDailySubmit(event){
     event.preventDefault();
+    let searchType = document.getElementById("daily-search-type").value;
     let date = document.getElementById("date").value;
-    sendDailyRequest(date);
+    sendDailyRequest(searchType, date);
 }
 
 function dailyReqListener() {
@@ -30,9 +34,9 @@ function dailyReqListener() {
             datasets: [
                 {
                     label: 'Commodity Daily Sales',
-                    backgroundColor: ["#ffadad", "#ffd6a5", "#caffbf","#9bf6ff","#a0c4ff","#bdb2ff","#ffc6ff"],
-                    borderColor: ["#ffadad", "#ffd6a5", "#caffbf","#9bf6ff","#a0c4ff","#bdb2ff","#ffc6ff"],
-                    hoverBackgroundColor: ["#ffadad", "#ffd6a5", "#caffbf","#9bf6ff","#a0c4ff","#bdb2ff","#ffc6ff"],
+                    backgroundColor: colors,
+                    borderColor: colors,
+                    hoverBackgroundColor: colors,
                     hoverBorderColor: '#ffffff',
                     data: yList
                 }
@@ -48,6 +52,7 @@ monthlyForm.addEventListener("submit", onMonthlySubmit);
 const lineCtx = document.getElementById('monthlyRevenue').getContext('2d');
 const lineGraph = new Chart(lineCtx, {type: "line"});
 const datasets = [];
+sendMonthlyRequest(document.getElementById("search-type").value, document.getElementById("start-date").value, document.getElementById("end-date").value);
 
 function onMonthlySubmit(event){
     event.preventDefault();
@@ -61,32 +66,39 @@ function onMonthlySubmit(event){
 
 function sendMonthlyRequest(searchType, startDate, endDate){
     let categoryReq = new XMLHttpRequest();
+    colorIndex = 0;
     categoryReq.open("GET", "get_set.php", true);
     categoryReq.send();
     categoryReq.onload = function(){
         let responseObj = JSON.parse(this.responseText);
-        responseObj.category_set.forEach((c) => 
+        if(searchType == 'c_category'){
+            responseObj.category_set.forEach((c) => 
             {
-                let getURL = "monthly_commodity.php?label=" + c.category + "&start-date=" + startDate + "&end-date=" + endDate;
+                let getURL = "monthly_commodity.php?label=" + c.category + "&start-date=" + startDate + "&end-date=" + endDate + "&search-type="+searchType;
                 let monthlyReq = new XMLHttpRequest();
                 monthlyReq.addEventListener("load", monthlyReqListener);
                 monthlyReq.open("GET", getURL, true);
                 monthlyReq.send();
-            }
-        );
+            });
+        }else if(searchType == 'c_name'){
+            responseObj.commodity_set.forEach((c) => 
+            {
+                let getURL = "monthly_commodity.php?label=" + c.commodity_name+ "&start-date=" + startDate + "&end-date=" + endDate + "&search-type="+searchType;
+                let monthlyReq = new XMLHttpRequest();
+                monthlyReq.addEventListener("load", monthlyReqListener);
+                monthlyReq.open("GET", getURL, true);
+                monthlyReq.send();
+            });
+        }
     }
 }
 
 function monthlyReqListener(){
-    let colors = ["#ffadad", "#ffd6a5", "#caffbf","#9bf6ff","#a0c4ff","#bdb2ff","#ffc6ff"];
-    let colorIndex = Math.floor(Math.random() * colors.length);
-    console.log("colorIndex: " + colorIndex);
-    
-    console.log(this.responseText);
     let responseObj = JSON.parse(this.responseText);
     let xList = responseObj.x;
     let yList = responseObj.y;
     let label = responseObj.label;
+
     datasets.push({
         fill: false,
         label: label,
@@ -101,6 +113,7 @@ function monthlyReqListener(){
         datasets: datasets
     }
     lineGraph.update();
+    colorIndex += 1;
 }
 
 function getDate(){
@@ -111,6 +124,18 @@ function getDate(){
     if(dd < 10){
         dd = '0' + dd;
     }
+    if(mm < 10){
+        mm = '0' + mm;
+    }
+    let todayStr = yyyy + '-' + mm +'-' + dd;
+    return todayStr;
+}
+
+function getFirstDay(){
+    let today = new Date();
+    let dd = '01';
+    let mm = today.getMonth() + 1;
+    let yyyy = today.getFullYear();
     if(mm < 10){
         mm = '0' + mm;
     }

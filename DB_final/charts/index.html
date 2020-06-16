@@ -73,9 +73,13 @@ if(!isset($_SESSION['account'])){
 <!-- 內容 -->
 <div class="container-fluid">
     <h1 class="mt-4">分析報告</h1>
-    <div class="d-flex flex-column justify-content-center align-items-center mt-5" id="wrapper">
-        <div class="form-group mx-auto" style="width: 900px;">
+    <div class="d-flex flex-column justify-content-left align-items-left mt-5" id="wrapper">
+        <div class="form-group mx-auto" style="width: 1000px;">
             <form method="GET" id="dailyForm">
+                <select id="daily-search-type">
+                    <option value="c_category">商品種類</option>
+                    <option value="c_name">商品名稱</option>
+                 </select> <br/><br/>
                 <input type="date" id="date"/>
                 <input type="submit" value="查詢">
             </form>
