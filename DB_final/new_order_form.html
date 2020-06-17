@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="庫存管理系統">
+    <meta name="description" content="商家管理系統">
     <meta name="author" content="DCT-WEB-GROUP-5">
-    <title>新增商品</title>
+    <title>新增訂單</title>
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
@@ -27,10 +27,11 @@
     <div class="d-flex" id="wrapper">
         <!-- Sidebar -->
         <div class="bg-dark border-right text-white" id="sidebar-wrapper">
-            <div class="sidebar-heading">庫存管理系統</div>
+            <div class="sidebar-heading">商家管理系統</div>
             <div class="list-group list-group-flush">
                 <a href="goods.php" class="list-group-item list-group-item-action bg-dark text-white">商品</a>
-                <a href="supplier.php" class="list-group-item list-group-item-action bg-dark text-white">廠商</a>
+                <a href="supplier.php" class="list-group-item list-group-item-action bg-dark text-white">供應商</a>
+                <a href="order_form.php" class="list-group-item list-group-item-action bg-dark text-white">訂單</a>
                 <a href="employee.php" class="list-group-item list-group-item-action bg-dark text-white">員工</a>
                 <a href="./charts/index.html" class="list-group-item list-group-item-action bg-dark text-white">分析報告</a>
             </div>
@@ -66,37 +67,40 @@
             </nav>
             <!-- 內容 -->
             <div class="container-fluid">
-                <h1 class="mt-4">新增商品</h1>
-                <form action="new_goods.php" method="post">
+                <h1 class="mt-4">新增訂單</h1>
+                <form action="new_order_form.php" class="mx-auto" style="max-width: 500px;" method="post">
                     <div class="d-flex flex-column justify-content-center align-items-center mt-5" id="wrapper">
-                        <div class="form-group mx-auto" style="width: 500px;">
-                            <label for="inputCategory">類別</label>
-                            <select id="inputCategory" class="form-control" name="category">
-                                <option selected>食品</option>
-                                <option>家電</option>
-                                <option>生活雜物</option>
-                            </select>
-                            <!--改選單-->
+                        <div class="form-group mx-auto" style="max-width: 500px; width: 100%;">
+                            <label for="formContactName">聯絡人</label>
+                            <input type="text" class="form-control" id="formContactName" name="contact_name" placeholder="Contact Person" required>
                         </div>
-                        <div class="form-group mx-auto" style="width: 500px;">
-                            <label for="formName">品名</label>
-                            <input type="text" class="form-control" id="formName" name="name" placeholder="Name" required>
+                        <div class="form-group mx-auto" style="max-width: 500px; width: 100%;">
+                            <label for="formPhoneNum">電話</label>
+                            <input type="text" class="form-control" id="formPhoneNum" name="phonenum" placeholder="Phone Number" required>
                         </div>
-                        <div class="form-group mx-auto" style="width: 500px;">
-                            <label for="formCost">成本</label>
-                            <input type="text" class="form-control" id="formCost" name="cost" placeholder="Cost" required>
+                        <div class="form-group mx-auto" style="max-width: 500px; width: 100%;">
+                            <label for="formAddress">地址</label>
+                            <input type="text" class="form-control" id="formAddress" name="address" placeholder="Address" required>
                         </div>
-                        <div class="form-group mx-auto" style="width: 500px;">
-                            <label for="formPrice">售價</label>
-                            <input type="text" class="form-control" id="formPrice" name="price" placeholder="Price" required>
+                        <select class="factory">
+                            
+                        </select>
+                        <div class="container" style="padding: 0; margin-bottom: 10px;">
+                            <div class="rows">
+                                <div class="col-6" style="padding: 0;">
+                                    <label>商品</label>
+                                    <input type="text" class="form-control" id="product-1" name="product" placeholder="product" required>
+                                </div>
+                                <div class="col-6"></div>
+                            </div>
                         </div>
-                        <div class="form-group mx-auto" style="width: 500px;">
-                            <label for="formSupplier">廠商</label>
-                            <input type="text" class="form-control" id="formSupplier" name="supplier" placeholder="Supplier" required>
-                        </div>
-                        <input type="submit" value="新增" class="btn btn-primary"><br><br>
+                        <!-- <div class="form-group mx-auto" style="width: 500px;">
+                            <label for="formgood">商品</label>
+                            <input maxlength="8" type="text" class="form-control" id="formgood" name="good" placeholder="Tax Id" required>
+                        </div> -->
+                        <input type="submit" value="新增" class="btn btn-primary">
                     </div>
-                </form>
+                </form> 
             </div>
             <!-- 內容 -->
         </div>
@@ -115,4 +119,4 @@
     </script>
 </body>
 
-</html>
+</html> -->

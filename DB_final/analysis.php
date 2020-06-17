@@ -17,7 +17,7 @@ if(!isset($_SESSION['account'])){
       label{text-align: center; font-size: 20pt;}
   </style>
 
-  <title>庫存管理系統首頁</title>
+  <title>商家管理系統首頁</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -45,10 +45,11 @@ if(!isset($_SESSION['account'])){
 
     <!-- Sidebar -->
     <div class="bg-dark border-right text-white" id="sidebar-wrapper">
-      <div class="sidebar-heading">庫存管理系統</div>
+      <div class="sidebar-heading">商家管理系統</div>
       <div class="list-group list-group-flush">
         <a href="goods.php" class="list-group-item list-group-item-action bg-dark text-white">商品</a>
-        <a href="supplier.php" class="list-group-item list-group-item-action bg-dark text-white">廠商</a>
+        <a href="supplier.php" class="list-group-item list-group-item-action bg-dark text-white">供應商</a>
+        <a href="order_form.php" class="list-group-item list-group-item-action bg-dark text-white">訂單</a>
         <a href="employee.php" class="list-group-item list-group-item-action bg-dark text-white">員工</a>
         <a href="analysis.php" class="list-group-item list-group-item-action bg-dark text-white">分析報告</a>
     </div>

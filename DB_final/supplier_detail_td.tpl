@@ -1,36 +1,26 @@
-<!DOCTYPE html>
+<html>
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="庫存管理系統">
+    <meta name="description" content="商家管理系統">
     <meta name="author" content="DCT-WEB-GROUP-5">
-    <title>新增商品</title>
+    <title>商品管理</title>
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="css/simple-sidebar.css" rel="stylesheet">
-    <!-- 嘗試更改預設字體  
-  <link rel="stylesheet" href="/font_style.css">
-  <style>
-    body {
-  margin: 0;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  line-height: 20px;
-}
-  </style>
--->
 </head>
 
 <body>
     <div class="d-flex" id="wrapper">
         <!-- Sidebar -->
         <div class="bg-dark border-right text-white" id="sidebar-wrapper">
-            <div class="sidebar-heading">庫存管理系統</div>
+            <div class="sidebar-heading">商家管理系統</div>
             <div class="list-group list-group-flush">
                 <a href="goods.php" class="list-group-item list-group-item-action bg-dark text-white">商品</a>
-                <a href="supplier.php" class="list-group-item list-group-item-action bg-dark text-white">廠商</a>
+                <a href="supplier.php" class="list-group-item list-group-item-action bg-dark text-white">供應商</a>
+                <a href="order_form.php" class="list-group-item list-group-item-action bg-dark text-white">訂單</a>
                 <a href="employee.php" class="list-group-item list-group-item-action bg-dark text-white">員工</a>
                 <a href="./charts/index.html" class="list-group-item list-group-item-action bg-dark text-white">分析報告</a>
             </div>
@@ -66,38 +56,45 @@
             </nav>
             <!-- 內容 -->
             <div class="container-fluid">
-                <h1 class="mt-4">新增商品</h1>
-                <form action="new_goods.php" method="post">
-                    <div class="d-flex flex-column justify-content-center align-items-center mt-5" id="wrapper">
-                        <div class="form-group mx-auto" style="width: 500px;">
-                            <label for="inputCategory">類別</label>
-                            <select id="inputCategory" class="form-control" name="category">
-                                <option selected>食品</option>
-                                <option>家電</option>
-                                <option>生活雜物</option>
-                            </select>
-                            <!--改選單-->
-                        </div>
-                        <div class="form-group mx-auto" style="width: 500px;">
-                            <label for="formName">品名</label>
-                            <input type="text" class="form-control" id="formName" name="name" placeholder="Name" required>
-                        </div>
-                        <div class="form-group mx-auto" style="width: 500px;">
-                            <label for="formCost">成本</label>
-                            <input type="text" class="form-control" id="formCost" name="cost" placeholder="Cost" required>
-                        </div>
-                        <div class="form-group mx-auto" style="width: 500px;">
-                            <label for="formPrice">售價</label>
-                            <input type="text" class="form-control" id="formPrice" name="price" placeholder="Price" required>
-                        </div>
-                        <div class="form-group mx-auto" style="width: 500px;">
-                            <label for="formSupplier">廠商</label>
-                            <input type="text" class="form-control" id="formSupplier" name="supplier" placeholder="Supplier" required>
-                        </div>
-                        <input type="submit" value="新增" class="btn btn-primary"><br><br>
-                    </div>
-                </form>
+                <h1 class="mt-4">供應列表</h1><br><br>
+                <!--<a href="new_goods.php" class="ml-5"><button type="button" class="btn btn-info btn-sm">新增商品</button></a>-->
+                <div class="classbtn d-inline">
+                    <!--
+                    <button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button" id="classdropdownMenu" data-toggle="dropdown">
+                        分類
+                    </button>
+                  -->
+                </div>
+                <hr>
             </div>
+            <div class="ml-5 mr-5">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>類別</th>
+                            <th>品名</th>
+                            <th>成本</th>
+                            <th>售價</th>
+                            <th>廠商</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {:messages}
+                    </tbody>
+                </table>
+            </div>
+            <!--
+            <nav aria-label="Search results pages">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item"><a class="page-link" href="<?php echo'supplier.html'?>">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                </ul>
+            </nav>
+            -->
             <!-- 內容 -->
         </div>
         <!-- /#page-content-wrapper -->
