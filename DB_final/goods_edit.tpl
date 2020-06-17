@@ -23,7 +23,7 @@
                 <a href="supplier.php" class="list-group-item list-group-item-action bg-dark text-white">供應商</a>
                 <a href="order_form.php" class="list-group-item list-group-item-action bg-dark text-white">訂單</a>
                 <a href="employee.php" class="list-group-item list-group-item-action bg-dark text-white">員工</a>
-                <a href="analysis.php" class="list-group-item list-group-item-action bg-dark text-white">分析報告</a>
+                <a href="./charts/index.html" class="list-group-item list-group-item-action bg-dark text-white">分析報告</a>
             </div>
         </div>
         <!-- /#sidebar-wrapper -->
