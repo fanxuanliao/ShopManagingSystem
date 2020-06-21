@@ -16,9 +16,16 @@ while($row = $sth->fetch(PDO::FETCH_ASSOC)){
     $msgTpl->set('customer_phone', $row['customer_phone']);
     $msgTpl->set('customer_address', $row['customer_address']);
     $msgTpl->set('accept_date', $row['accept_date']);
-    $msgTpl->set('status', $row['status']);
+    //$msgTpl->set('status', $row['status']);
+    if($row['status']==0){
+        $msgTpl->set('status', '未完成');
+    }
+    else{
+        $msgTpl->set('status', '已完成');
+    }
     $msgTpl->set('view', $row['order_number']);
     $msgTpl->set('delete', $row['order_number']);
+    $msgTpl->set('confirm', $row['order_number']);
     $msgs[] = $msgTpl->render();
 }   
  
