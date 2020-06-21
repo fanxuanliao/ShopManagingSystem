@@ -1,5 +1,5 @@
 <?php 
-    include("pdoInc.php");
+    include("../pdoInc.php");
 
     $category_query = $dbh->prepare(        
         "
