@@ -18,7 +18,7 @@ if(isset($_POST['acc']) && isset($_POST['pwd'])){
             $_SESSION['storename'] = $row['shop_name'];
             echo '<meta http-equiv=REFRESH CONTENT=0;url=main.php>';
         }else{
-            echo '<script>alert("請輸入統編及密碼")</script>';
+            echo '<script>alert("統編或密碼錯誤，請重新輸入！")</script>';
             echo '<meta http-equiv=REFRESH CONTENT=0;url=login.html>';
         }
     }else{
