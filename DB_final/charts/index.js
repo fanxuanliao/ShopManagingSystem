@@ -70,6 +70,7 @@ function sendMonthlyRequest(searchType, startDate, endDate){
     categoryReq.open("GET", "get_set.php", true);
     categoryReq.send();
     categoryReq.onload = function(){
+        console.log(this.responseText);
         let responseObj = JSON.parse(this.responseText);
         if(searchType == 'c_category'){
             responseObj.category_set.forEach((c) => 

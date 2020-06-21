@@ -1,5 +1,5 @@
 <?php
-    include("pdoInc.php");
+    include("../pdoInc.php");
     function createDateRangeArray($strDateFrom,$strDateTo)
     {
         // takes two dates formatted as YYYY-MM-DD and creates an

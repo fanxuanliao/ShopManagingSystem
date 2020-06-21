@@ -1,5 +1,5 @@
 <?php
-    include("pdoInc.php");
+    include("../pdoInc.php");
     if(isset($_GET['date'])){
         $cateDaily = $dbh->prepare(        
             "
