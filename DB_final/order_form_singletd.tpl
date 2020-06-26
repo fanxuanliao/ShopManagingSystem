@@ -10,6 +10,6 @@
     <td>{:status}</td>
     <td>
     <a href="del_order_form.php?id={:delete}">刪除</a>
-    <a href="confirm_order_form.php?id={:confirm}">出貨</a>
+    <a href="confirm_order_form.php?id={:confirm}">狀態變更</a>
     </td>
 </tr>
